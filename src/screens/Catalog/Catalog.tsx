@@ -5,7 +5,7 @@ import { Button } from "../../components/Button";
 import { Footer } from "../../components/Footer";
 import { Logo } from "../../components/Logo";
 import { products } from "../../content/products";
-import { generateIdempotencyKey } from "../../services/idService";
+import { generateIdempotencyKey, rememberUsedEmail } from "../../services/idService";
 import { enqueueParticipation } from "../../services/outbox";
 import type { Participation } from "../../types/participation";
 import styles from "./Catalog.module.css";
@@ -50,6 +50,12 @@ export function Catalog() {
       ts: Date.now(),
     };
     enqueueParticipation(participation);
+    // Recien aca (no antes de intentarlo) se marca localmente como
+    // participado - asi un segundo intento en este mismo celular con el
+    // mismo correo lo atrapa hasEmailPlayedLocally al instante, en vez de
+    // depender solo del chequeo remoto o de que Supabase rechace el insert
+    // con un 409 silencioso.
+    if (session.email) rememberUsedEmail(session.email);
     navigate("thankYou");
   };
 
