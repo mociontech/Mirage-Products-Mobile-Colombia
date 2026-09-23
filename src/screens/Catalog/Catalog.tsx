@@ -1,5 +1,4 @@
 import { useFlow } from "../../app/FlowMachine";
-import { PARTICIPATION_POINTS } from "../../config/env";
 import { BrandFrame } from "../../components/BrandFrame";
 import { Button } from "../../components/Button";
 import { Footer } from "../../components/Footer";
@@ -15,8 +14,11 @@ import styles from "./Catalog.module.css";
  * completo. "Finalizar" dispara PARTICIPATION_RESULT hacia Evius/Supabase
  * (ver services/api.ts), igual que el boton "Continuar" -> ThankYou de
  * ProductSelect en la version tablet+pitch: se manda el ultimo producto que
- * el visitante abrio (o null si solo miro el grid) y el puntaje fijo
- * PARTICIPATION_POINTS.
+ * el visitante abrio y el puntaje calculado segun cuantos productos
+ * DISTINTOS exploro (session.viewedProductIds, acumulado en Detail.tsx) -
+ * no un fijo. Mismo criterio en las 4 apps que alimentan "catalogo"
+ * (tablet+pitch y movil, CO+MX), para que el ranking combinado siga siendo
+ * comparable entre dispositivos.
  *
  * Layout en dos partes, igual orden que content/products.ts: los primeros 9
  * en la grilla blanca de 2 columnas (Xtra Multi Inverter a ancho completo,
@@ -37,6 +39,7 @@ export function Catalog() {
   };
 
   const handleFinish = () => {
+    const points = Math.round((session.viewedProductIds.length / products.length) * 100);
     const participation: Participation = {
       code: session.code,
       name: session.name,
@@ -45,7 +48,7 @@ export function Catalog() {
       phone: session.phone,
       area: session.area,
       productId: session.selectedProductId,
-      points: PARTICIPATION_POINTS,
+      points,
       idempotencyKey: generateIdempotencyKey(),
       ts: Date.now(),
     };
