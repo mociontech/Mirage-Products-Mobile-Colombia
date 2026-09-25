@@ -1,7 +1,10 @@
 import styles from "./Footer.module.css";
 
 const DOMAIN_BY_COUNTRY: Record<string, string> = {
-  CO: "www.mirage.co",
+  CO: "www.airesmirage.co",
+  // TODO: confirmar el dominio oficial de Mexico (www.mirage.mx era el
+  // mismo tipo de placeholder que www.mirage.co resulto ser para Colombia -
+  // el real es www.airesmirage.co, no ese).
   MX: "www.mirage.mx",
 };
 
