@@ -65,7 +65,7 @@ export function Catalog() {
   return (
     <div className={styles.shell}>
       <BrandFrame />
-      <div className={styles.header}>
+      <div className={`${styles.header} enterFromTop`}>
         <div className={styles.logoWrap}>
           <Logo />
         </div>
@@ -74,13 +74,14 @@ export function Catalog() {
 
       <div className={styles.scrollArea}>
         <div className={styles.grid}>
-          {gridProducts.map((product) => {
+          {gridProducts.map((product, index) => {
             const isWide = product.id === "xtra-multi";
             return (
               <button
                 key={product.id}
                 type="button"
-                className={`${styles.card} ${isWide ? styles.cardWide : ""}`}
+                className={`${styles.card} ${isWide ? styles.cardWide : ""} enterScale`}
+                style={{ animationDelay: `${Math.min(index, 8) * 40}ms` }}
                 onClick={() => openProduct(product.id)}
               >
                 <img src={product.logoImage} alt={product.name} className={styles.cardLogo} />
@@ -91,11 +92,12 @@ export function Catalog() {
         </div>
 
         <div className={styles.redBlock}>
-          {redProducts.map((product) => (
+          {redProducts.map((product, index) => (
             <button
               key={product.id}
               type="button"
-              className={styles.redRow}
+              className={`${styles.redRow} enterFromLeft`}
+              style={{ animationDelay: `${360 + index * 60}ms` }}
               onClick={() => openProduct(product.id)}
             >
               <img src={product.logoImage} alt={product.name} className={styles.redLogo} />
@@ -105,7 +107,7 @@ export function Catalog() {
         </div>
       </div>
 
-      <div className={styles.finishRow}>
+      <div className={`${styles.finishRow} enterFromBottom`}>
         <Button className={styles.finishButton} onClick={handleFinish}>
           Finalizar
         </Button>
