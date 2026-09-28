@@ -43,63 +43,53 @@
 .grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
   gap: var(--space-3);
   padding: 0 var(--space-4);
 }
 
 .card {
   position: relative;
-  aspect-ratio: 173 / 155;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: var(--space-1);
-  background: var(--color-surface);
+  display: block;
+  width: 100%;
+  background: linear-gradient(180deg, #f4f5f5 0%, #e8e8e8 100%);
   border: none;
   border-radius: 14px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 4px 12px rgba(0, 0, 0, 0.05);
-  padding: var(--space-2);
+  padding: 0;
   overflow: hidden;
 }
 
 .cardLogo {
-  width: 80%;
-  max-height: 42%;
+  position: absolute;
+  height: auto;
   object-fit: contain;
+  pointer-events: none;
+}
+
+.cardPhotoFrame {
+  position: absolute;
+  display: block;
+  overflow: hidden;
   pointer-events: none;
 }
 
 .cardPhoto {
-  width: 85%;
-  max-height: 52%;
-  object-fit: contain;
+  position: absolute;
+  display: block;
+  max-width: none;
   pointer-events: none;
 }
 
-/* Xtra Multi Inverter: fila completa, logo+equipo lado a lado (mas horizontal que el resto). */
-.cardWide {
-  grid-column: 1 / -1;
-  aspect-ratio: auto;
-  min-height: 12cqh;
-  flex-direction: row;
-  gap: var(--space-3);
-}
-
-.cardWide .cardLogo {
-  width: 40%;
-  max-height: 70%;
-}
-
-.cardWide .cardPhoto {
-  width: 55%;
-  max-height: 80%;
+.wideLightRow {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  width: 100%;
+  margin-top: var(--space-3);
+  padding: 0 var(--space-4);
 }
 
 .redBlock {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-1);
   width: 100%;
   margin-top: var(--space-5);
   padding: var(--space-6) var(--space-4) var(--space-7);
@@ -107,29 +97,22 @@
   border-radius: 20px 20px 0 0;
 }
 
-.redRow {
+.wideGrid {
   display: grid;
-  grid-template-columns: 40% 60%;
-  align-items: center;
+  grid-template-columns: minmax(0, 1fr);
+  align-items: start;
   gap: var(--space-3);
-  min-height: 12cqh;
-  padding: var(--space-2) var(--space-1);
-  background: none;
-  border: none;
 }
 
-.redLogo {
-  width: 100%;
-  max-height: 6.4cqh;
-  object-fit: contain;
-  pointer-events: none;
+.cardRed {
+  background: linear-gradient(180deg, #ff0531 0%, #df032a 100%);
+  box-shadow: 0 1px 3px rgba(120, 0, 20, 0.12), 0 4px 12px rgba(120, 0, 20, 0.12);
 }
 
-.redPhoto {
-  width: 100%;
-  max-height: 11cqh;
-  object-fit: contain;
-  pointer-events: none;
+.wideCardLogo,
+.wideCardPhotoFrame {
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .finishRow {
