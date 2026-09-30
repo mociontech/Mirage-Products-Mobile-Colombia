@@ -259,6 +259,7 @@ export function Catalog() {
       area: session.area,
       productId: session.selectedProductId,
       points,
+      viewedProductIds: session.viewedProductIds,
       idempotencyKey: generateIdempotencyKey(),
       ts: Date.now(),
     };
